@@ -1,0 +1,170 @@
+fileFormatVersion: 1
+guid: ccae3a46b9dc14fa8af3fbb6679b541f
+ModelImporter:
+  importerVersion: 7
+  meshes:
+    scaleFactor: 0.01
+    useFileUnits: 1
+    meshCompression: 0
+    generateColliders: 0
+    swapUVs: 0
+  tangentSpace:
+    normalImportMode: 0
+    tangentImportMode: 1
+    smoothingAngle: 60
+    splitTangents: 1
+  materials:
+    generation: 1
+  animations:
+    generation: 3
+    bakeAnimations: 0
+    animationCompression: 1
+    animationWrapMode: 0
+    splitAnimations: 1
+  nodeInfo:
+    Lamp:
+    - 100000
+    - 400000
+    Bone_005:
+    - 100002
+    - 400002
+    Cube_007:
+    - 100004
+    - 400004
+    - 3300000
+    - 2300000
+    Bone_008:
+    - 100006
+    - 400006
+    Bone_014:
+    - 100008
+    - 400008
+    Bone_015:
+    - 100010
+    - 400010
+    Cube_012:
+    - 100012
+    - 400012
+    - 3300002
+    - 2300002
+    Cube_008:
+    - 100014
+    - 400014
+    - 3300004
+    - 2300004
+    Cube_006:
+    - 100016
+    - 400016
+    - 3300006
+    - 2300006
+    Bone_004:
+    - 100018
+    - 400018
+    Cube_002:
+    - 100020
+    - 400020
+    - 3300008
+    - 2300008
+    Bone_007:
+    - 100022
+    - 400022
+    Bone_006:
+    - 100024
+    - 400024
+    Bone_010:
+    - 100026
+    - 400026
+    //RootNode:
+    - 100028
+    - 400028
+    - 11100000
+    Cube_003:
+    - 100030
+    - 400030
+    - 3300010
+    - 2300010
+    Bone_009:
+    - 100032
+    - 400032
+    Cube_004:
+    - 100034
+    - 400034
+    - 3300012
+    - 2300012
+    Cube_010:
+    - 100036
+    - 400036
+    - 3300014
+    - 2300014
+    Bone:
+    - 100038
+    - 400038
+    Cube_001:
+    - 100040
+    - 400040
+    - 3300016
+    - 2300016
+    Cube:
+    - 100042
+    - 400042
+    - 3300018
+    - 2300018
+    Cube_014:
+    - 100044
+    - 400044
+    - 3300020
+    - 2300020
+    Cube_011:
+    - 100046
+    - 400046
+    - 3300022
+    - 2300022
+    Bone_002:
+    - 100048
+    - 400048
+    Cube_009:
+    - 100050
+    - 400050
+    - 3300024
+    - 2300024
+    Cube_005:
+    - 100052
+    - 400052
+    - 3300026
+    - 2300026
+    Bone_003:
+    - 100054
+    - 400054
+    Bone_001:
+    - 100056
+    - 400056
+    Camera:
+    - 100058
+    - 400058
+    Cube_013:
+    - 100060
+    - 400060
+    - 3300028
+    - 2300028
+    Armature:
+    - 100062
+    - 400062
+AssetImporter:
+  importerVersion: 1
+  fileIDToRecycleName:
+    4300000: Cube_014
+    4300002: Cube_013
+    4300004: Cube_012
+    4300006: Cube_011
+    4300008: Cube_003
+    4300010: Cube_010
+    4300012: Cube_009
+    4300014: Cube_008
+    4300016: Cube_007
+    4300018: Cube_006
+    4300020: Cube_005
+    4300022: Cube_004
+    4300024: Cube_002
+    4300026: Cube_001
+    4300028: Cube
+    7400000: Default Take //// Boxel-Man

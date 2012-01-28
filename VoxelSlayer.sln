@@ -1,0 +1,27 @@
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+
+Project("{80B6EDC6-291E-0A64-A981-66E8FB453A17}") = "VoxelSlayer", "Assembly-CSharp.csproj", "{232E2505-2865-D325-19E3-A3F666A006BB}"
+EndProject
+Project("{80B6EDC6-291E-0A64-A981-66E8FB453A17}") = "VoxelSlayer", "Assembly-UnityScript-firstpass.unityproj", "{38764AE5-DE15-AF19-6BC9-E6D0F649DB9B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{232E2505-2865-D325-19E3-A3F666A006BB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{232E2505-2865-D325-19E3-A3F666A006BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{232E2505-2865-D325-19E3-A3F666A006BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{232E2505-2865-D325-19E3-A3F666A006BB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{38764AE5-DE15-AF19-6BC9-E6D0F649DB9B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{38764AE5-DE15-AF19-6BC9-E6D0F649DB9B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{38764AE5-DE15-AF19-6BC9-E6D0F649DB9B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{38764AE5-DE15-AF19-6BC9-E6D0F649DB9B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	
+EndGlobal
