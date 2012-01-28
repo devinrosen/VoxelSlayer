@@ -11,7 +11,17 @@ public class PlayerController : MonoBehaviour {
 	public float jumpMultiplier = 1;
 	public float moveMultiplier = 1;
 	public float turnMultiplier = 1;
-	
+	public float Mass {
+		get {
+			return mass;
+		}
+	}
+	public string Health {
+		get {
+			int i = (int)Mathf.Round(mass);
+			return i.ToString();
+		}
+	}
 	CharacterController cc;
 	
 	float verticalSpeed;
@@ -23,6 +33,7 @@ public class PlayerController : MonoBehaviour {
 	Transform camTarget;
 	// Use this for initialization
 	void Start () {
+		SetMass(100);
 		cc = gameObject.GetComponent<CharacterController>();
 		ratio = (massMax - mass)/massMax;
 		foreach(Transform t in transform) {
@@ -36,6 +47,8 @@ public class PlayerController : MonoBehaviour {
 	void SetMass(float m) {
 		mass = m;
 		ratio = (massMax - mass)/massMax;
+		float f = mass/200.0f;
+		transform.localScale = new Vector3(f,f,f);
 	}
 	
 	// Update is called once per frame
@@ -85,37 +98,37 @@ public class PlayerController : MonoBehaviour {
 		}
 		
 		
-		if(networkView.isMine) {		
-			RaycastHit hit;
-			float dist = 0;
-			GameObject obj = null;
-			if(Physics.Raycast(cc.transform.position,-Vector3.up,out hit)) {
-				dist = hit.distance;
-				obj = hit.collider.gameObject;
-			}
-			if (cc.isGrounded) {
-				verticalSpeed = -gravity;
-			}
-			else {
-				verticalSpeed -= gravity * Time.deltaTime;
-			}
-		
-			if(cc.isGrounded && jump) {
-				verticalSpeed = Mathf.Sqrt(2 * gravity)*jumpMultiplier;
-			}
-			if(dist < 0.1f && obj != null) {
-				float actualDist = Vector3.Distance(transform.position,obj.transform.position);
-				float desiredDist = (0.5f*cc.height + 0.5f*obj.transform.localScale.y);
-				verticalSpeed = desiredDist-actualDist;
-			}
-			cc.transform.Rotate(Vector3.up*z*Time.deltaTime*turnMultiplier*ratio);
-			cc.Move(cc.transform.rotation*(new Vector3(x*moveMultiplier*ratio,verticalSpeed*ratio,-y*moveMultiplier*ratio))*Time.deltaTime);
+		RaycastHit hit;
+		float dist = 0;
+		GameObject obj = null;
+		if(Physics.Raycast(cc.transform.position,-Vector3.up,out hit)) {
+			dist = hit.distance;
+			obj = hit.collider.gameObject;
 		}
+		if (cc.isGrounded) {
+			verticalSpeed = -gravity;
+		}
+		else {
+			verticalSpeed -= gravity * Time.deltaTime;
+		}
+		if(cc.isGrounded && jump) {
+			verticalSpeed = Mathf.Sqrt(2 * gravity)*jumpMultiplier;
+		}
+		if(dist < 0.1f && obj != null) {
+			float actualDist = Vector3.Distance(transform.position,obj.transform.position);
+			float desiredDist = (0.5f*cc.height + 0.5f*obj.transform.localScale.y);
+			verticalSpeed = desiredDist-actualDist;
+		}
+		cc.transform.Rotate(Vector3.up*z*Time.deltaTime*turnMultiplier*ratio);
+		cc.Move(cc.transform.rotation*(new Vector3(x*moveMultiplier*ratio,verticalSpeed*ratio,-y*moveMultiplier*ratio))*Time.deltaTime);
+	}
+	public void Spawn() {
+		SetMass(mass*0.9f);
+		transform.position = CircularBoard.Instance.GetSpawnPoint();
 	}
 	void OnControllerColliderHit(ControllerColliderHit hit) {
 		if(hit.collider.name == "KillBox") {
-			Debug.Log("KillBox");
-			transform.position = new Vector3(0,5,0);
+			Spawn();
 		}
 	}
 }

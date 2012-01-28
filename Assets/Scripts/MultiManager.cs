@@ -7,11 +7,14 @@ public class MultiManager : MonoBehaviour {
 	List<PlayerController> players;
 	List<Camera> cameras;
 	int[] connected;
+	Camera guiCamera;
+	public float guiMargin = 0.05f;
 	// Use this for initialization
 	void Start () {
 		players = new List<PlayerController>();
 		cameras = new List<Camera>();
 		connected = new int[]{-1,-1,-1,-1};	
+		guiCamera = GameObject.Find("GUICamera").camera;
 	}
 	
 	// Update is called once per frame
@@ -26,6 +29,23 @@ public class MultiManager : MonoBehaviour {
 		if(Input.GetKeyDown(KeyCode.Space)) 
 		{
 			JoystickButton(0,9);
+		}
+	}
+	void OnGUI() {
+		if(players.Count == 1) {
+			GUI.Label(new Rect(guiCamera.pixelWidth*guiMargin,guiCamera.pixelHeight*guiMargin,100,30),players[0].Health);
+		}
+		else if(players.Count == 2) {
+			GUI.Label(new Rect(guiCamera.pixelWidth*guiMargin,guiCamera.pixelHeight*guiMargin,100,30),players[0].Health);
+			GUI.Label(new Rect(guiCamera.pixelWidth*(guiMargin+0.5f),guiCamera.pixelHeight*guiMargin,100,30),players[1].Health);
+		}
+		else if(players.Count > 2) {
+			GUI.Label(new Rect(guiCamera.pixelWidth*guiMargin,guiCamera.pixelHeight*(guiMargin+0.5f),100,30),players[0].Health);
+			GUI.Label(new Rect(guiCamera.pixelWidth*(guiMargin+0.5f),guiCamera.pixelHeight*(guiMargin+0.5f),100,30),players[1].Health);
+			GUI.Label(new Rect(guiCamera.pixelWidth*guiMargin,guiCamera.pixelHeight*guiMargin,100,30),players[2].Health);
+			if(players.Count == 4) {
+				GUI.Label(new Rect(guiCamera.pixelWidth*(guiMargin+0.5f),guiCamera.pixelHeight*guiMargin,100,30),players[3].Health);
+			}
 		}
 	}
 	void JoystickButton(int joystick, int button) {

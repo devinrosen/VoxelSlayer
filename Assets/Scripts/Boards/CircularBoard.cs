@@ -57,6 +57,9 @@ public class CircularBoard : MonoBehaviour {
 		while(voxel == null) {
 			i = Random.Range(0,voxels.Length);
 			voxel = voxels[i];
+			if(voxel == null) {
+				voxels = GetComponentsInChildren<Voxel>();
+			}
 		}
 		Vector3 v = voxel.transform.position;
 		v.y = 7;

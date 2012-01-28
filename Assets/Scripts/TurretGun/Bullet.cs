@@ -28,7 +28,7 @@ public class Bullet : MonoBehaviour {
 			
 		
 		if(_collider.tag == "Player") {
-			_collider.gameObject.SendMessage("respawn");
+			_collider.gameObject.SendMessage("Spawn");
 			Destroy(gameObject);
 		}
 		if(_collider.tag == "KillBox") {
