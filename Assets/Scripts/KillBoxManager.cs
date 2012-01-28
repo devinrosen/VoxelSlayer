@@ -30,7 +30,6 @@ public class KillBoxManager : MonoBehaviour {
 		go.layer = 2;
 		go.tag = "KillBox";
 		go.AddComponent<BoxCollider>();
-		go.AddComponent("KillBox");
 		n = go.transform;
 		n.parent = transform;
 		
@@ -39,7 +38,6 @@ public class KillBoxManager : MonoBehaviour {
 		go.layer = 2;
 		go.tag = "KillBox";
 		go.AddComponent<BoxCollider>();
-		go.AddComponent("KillBox");
 		s = go.transform;
 		s.parent = transform;
 		
@@ -49,7 +47,6 @@ public class KillBoxManager : MonoBehaviour {
 		go.layer = 2;
 		go.tag = "KillBox";
 		go.AddComponent<BoxCollider>();
-		go.AddComponent("KillBox");
 		e = go.transform;
 		e.parent = transform;
 		
@@ -58,7 +55,6 @@ public class KillBoxManager : MonoBehaviour {
 		go.layer = 2;
 		go.tag = "KillBox";
 		go.AddComponent<BoxCollider>();
-		go.AddComponent("KillBox");
 		w = go.transform;
 		w.parent = transform;
 	
@@ -67,7 +63,6 @@ public class KillBoxManager : MonoBehaviour {
 		go.layer = 2;
 		go.tag = "KillBox";
 		go.AddComponent<BoxCollider>();
-		go.AddComponent("KillBox");
 		top = go.transform;
 		top.parent = transform;
 		
@@ -76,7 +71,6 @@ public class KillBoxManager : MonoBehaviour {
 		go.layer = 2;
 		go.tag = "KillBox";
 		go.AddComponent<BoxCollider>();
-		go.AddComponent("KillBox");
 		bottom = go.transform;
 		bottom.parent = transform;		
 		

@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class KillBox : MonoBehaviour {
+public class HealthBall : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
@@ -13,6 +13,8 @@ public class KillBox : MonoBehaviour {
 	
 	}
 	void OnCollisionEnter(Collision collision) {
-		Debug.Log(collision.gameObject.name);
+		if(collision.collider.tag == "KillBox") {
+			transform.position = CircularBoard.Instance.GetSpawnPoint();
+		}
 	}
 }

@@ -130,5 +130,9 @@ public class PlayerController : MonoBehaviour {
 		if(hit.collider.name == "KillBox") {
 			Spawn();
 		}
+		else if(hit.collider.tag == "Health") {
+			SetMass(mass*1.1f);
+			Destroy(hit.collider.gameObject);
+		}
 	}
 }

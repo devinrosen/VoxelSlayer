@@ -11,6 +11,7 @@ public class CircularBoard : MonoBehaviour {
 			return instance;
 		}
 	}
+	public GameObject healthDropPrefab;
 	
 	float delta;
 	float deltaMax;
@@ -62,7 +63,11 @@ public class CircularBoard : MonoBehaviour {
 			}
 		}
 		Vector3 v = voxel.transform.position;
-		v.y = 7;
+		v.y = 3;
 		return v;
+	}
+	public void DropHealth() {
+		GameObject go = (GameObject)Instantiate(healthDropPrefab);
+		go.transform.position = GetSpawnPoint();
 	}
 }

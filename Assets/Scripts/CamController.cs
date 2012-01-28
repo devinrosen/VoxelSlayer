@@ -21,6 +21,5 @@ public class CamController : MonoBehaviour {
 		v *= 15f*m;
 		transform.position += v*Time.deltaTime;
 		transform.LookAt(player.transform.position);
-		
 	}
 }

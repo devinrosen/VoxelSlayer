@@ -41,6 +41,7 @@ public class Voxel : MonoBehaviour {
 	void OnCollisionEnter(Collision collision) {
 		if(collision.collider.tag == "KillBox") {
 			Destroy(gameObject);
+			CircularBoard.Instance.DropHealth();
 		}
 	}
 }

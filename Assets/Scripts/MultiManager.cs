@@ -94,6 +94,7 @@ public class MultiManager : MonoBehaviour {
 		SmoothFollow sf = c.GetComponent<SmoothFollow>();
 		if(sf == null) {
 			sf = c.gameObject.AddComponent<SmoothFollow>();
+			sf.player = pc;
 		}
 		sf.target = pc.transform;
 		sf.distance = 3;

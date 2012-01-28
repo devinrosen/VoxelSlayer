@@ -5,11 +5,11 @@
 	<Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
 	<ProductVersion>9.0.21022</ProductVersion>
 	<SchemaVersion>2.0</SchemaVersion>
-	<ProjectGuid>{232E2505-2865-D325-19E3-A3F666A006BB}</ProjectGuid>
+	<ProjectGuid>{C9359311-C495-C399-B49C-68501CBC7198}</ProjectGuid>
 	<OutputType>Library</OutputType>
 	<AppDesignerFolder>Properties</AppDesignerFolder>
 	<RootNamespace></RootNamespace>
-	<AssemblyName>Assembly-CSharp</AssemblyName>
+	<AssemblyName>Assembly-UnityScript</AssemblyName>
 	<TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
 	<FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -44,19 +44,7 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\Scripts\Boards\Board.cs" />
-     <Compile Include="Assets\Scripts\Boards\CircularBoard.cs" />
-     <Compile Include="Assets\Scripts\Boards\RectangularBoard.cs" />
-     <Compile Include="Assets\Scripts\CamController.cs" />
-     <Compile Include="Assets\Scripts\HealthBall.cs" />
-     <Compile Include="Assets\Scripts\InputType.cs" />
-     <Compile Include="Assets\Scripts\KillBoxManager.cs" />
-     <Compile Include="Assets\Scripts\MultiManager.cs" />
-     <Compile Include="Assets\Scripts\NetworkManagerSetup.cs" />
-     <Compile Include="Assets\Scripts\PlayerController.cs" />
-     <Compile Include="Assets\Scripts\TurretGun\Bullet.cs" />
-     <Compile Include="Assets\Scripts\TurretGun\TurretGun.cs" />
-     <Compile Include="Assets\Scripts\Voxel.cs" />
+     <Compile Include="Assets\NewBehaviourScript.js" />
      <None Include="Assets\Standard Assets\Skyboxes\ skybox info.txt" />
   </ItemGroup>
   <ItemGroup>

@@ -48,8 +48,8 @@
      <Compile Include="Assets\Scripts\Boards\CircularBoard.cs" />
      <Compile Include="Assets\Scripts\Boards\RectangularBoard.cs" />
      <Compile Include="Assets\Scripts\CamController.cs" />
+     <Compile Include="Assets\Scripts\HealthBall.cs" />
      <Compile Include="Assets\Scripts\InputType.cs" />
-     <Compile Include="Assets\Scripts\KillBox.cs" />
      <Compile Include="Assets\Scripts\KillBoxManager.cs" />
      <Compile Include="Assets\Scripts\MultiManager.cs" />
      <Compile Include="Assets\Scripts\NetworkManagerSetup.cs" />
