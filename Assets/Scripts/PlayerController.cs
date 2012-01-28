@@ -46,20 +46,22 @@ public class PlayerController : MonoBehaviour {
 		float y = 0;
 		float z = 0;
 		float w = 0;
-		//jump
-		try {
-			jump = Input.GetButtonDown("joystick "+playerNumber+" button 1");
-			//attack
-			attack = Input.GetButtonDown("joystick "+playerNumber+" button 0");
-			
-			x = Input.GetAxis("joystick "+playerNumber+" axis x");
-			y = Input.GetAxis("joystick "+playerNumber+" axis y");
-			z = Input.GetAxis("joystick "+playerNumber+" axis z");
-			w = Input.GetAxis("joystick "+playerNumber+" axis w");
-		}
-		catch(System.Exception e) {
-		}
 		
+		if(inputType == InputType.Gamepad) {
+			try {
+				//jump
+				jump = Input.GetButtonDown("joystick "+playerNumber+" button 1");
+				//attack
+				attack = Input.GetButtonDown("joystick "+playerNumber+" button 0");
+			
+				x = Input.GetAxis("joystick "+playerNumber+" axis x");
+				y = Input.GetAxis("joystick "+playerNumber+" axis y");
+				z = Input.GetAxis("joystick "+playerNumber+" axis z");
+				w = Input.GetAxis("joystick "+playerNumber+" axis w");
+			}
+			catch(System.Exception e) {
+			}
+		}
 		if(inputType == InputType.Keyboard) {
 			if(Input.GetKeyDown(KeyCode.Space)) {
 				jump = true;
@@ -67,8 +69,18 @@ public class PlayerController : MonoBehaviour {
 			if(Input.GetKeyDown(KeyCode.E)) {
 				attack = true;
 			}
-			x = Input.GetAxis("Horizontal");
-			y = -Input.GetAxis("Vertical");
+			if(Input.GetKey(KeyCode.D)) {
+				x = 1;
+			}
+			if(Input.GetKey(KeyCode.A)) {
+				x = -1;
+			}
+			if(Input.GetKey(KeyCode.W)) {
+				y = -1;
+			}
+			if(Input.GetKey(KeyCode.S)) {
+				y = 1;
+			}
 			z = Input.GetAxis("Mouse X");
 		}
 		

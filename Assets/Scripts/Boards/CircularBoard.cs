@@ -2,6 +2,16 @@ using UnityEngine;
 using System.Collections;
 
 public class CircularBoard : MonoBehaviour {
+	private static CircularBoard instance = null;
+	public static CircularBoard Instance {
+		get {
+			if(instance == null) {
+				instance = FindObjectOfType(typeof(CircularBoard)) as CircularBoard;
+			}
+			return instance;
+		}
+	}
+	
 	float delta;
 	float deltaMax;
 	
@@ -40,5 +50,16 @@ public class CircularBoard : MonoBehaviour {
 				voxels = GetComponentsInChildren<Voxel>();
 			}
 		}
+	}
+	public Vector3 GetSpawnPoint() {
+		int i;
+		Voxel voxel = null;	
+		while(voxel == null) {
+			i = Random.Range(0,voxels.Length);
+			voxel = voxels[i];
+		}
+		Vector3 v = voxel.transform.position;
+		v.y = 7;
+		return v;
 	}
 }

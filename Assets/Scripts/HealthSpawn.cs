@@ -27,7 +27,7 @@ public class HealthSpawn : MonoBehaviour
 	void respawn()
 	{
 		Debug.Log("respawn()");
-		transform.position = new Vector3(0,7,0);
+		transform.position = CircularBoard.Instance.GetSpawnPoint();
 		//spawn.transform.position;
 		//transform.rotation = spawn.transform.rotation;
 		currentHealth = initHealth;
