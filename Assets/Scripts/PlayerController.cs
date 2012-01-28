@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections;
 
 public class PlayerController : MonoBehaviour {
+	public InputType inputType;
 	public int playerNumber;
 	
 	public float massMax = 1000;
@@ -18,9 +19,6 @@ public class PlayerController : MonoBehaviour {
 	
 	//dirty trick to not do as much division at runtime\
 	float ratio;
-	
-	float horizontal;
-	float vertical;
 	
 	Transform camTarget;
 	// Use this for initialization
@@ -40,32 +38,42 @@ public class PlayerController : MonoBehaviour {
 		ratio = (massMax - mass)/massMax;
 	}
 	
-	public void ButtonPressed(int button) {
-		Debug.Log(playerNumber +":"+button);
-	}
-	public void Axis(int axis, float value) {
-	}
-	
 	// Update is called once per frame
 	void Update () {
+		bool jump = false;
+		bool attack = false;
+		float x = 0;
+		float y = 0;
+		float z = 0;
+		float w = 0;
 		//jump
 		try {
-			if(Input.GetButtonDown("joystick "+playerNumber+" button 1")) {
-				
-			}
-			//hit
-			if(Input.GetButtonDown("joystick "+playerNumber+" button 0")) {
-				
-			}
+			jump = Input.GetButtonDown("joystick "+playerNumber+" button 1");
+			//attack
+			attack = Input.GetButtonDown("joystick "+playerNumber+" button 0");
+			
+			x = Input.GetAxis("joystick "+playerNumber+" axis x");
+			y = Input.GetAxis("joystick "+playerNumber+" axis y");
+			z = Input.GetAxis("joystick "+playerNumber+" axis z");
+			w = Input.GetAxis("joystick "+playerNumber+" axis w");
 		}
 		catch(System.Exception e) {
 		}
-
-		/*
-		if(networkView.isMine) {
-			horizontal = Input.GetAxis("Horizontal");
-			vertical = Input.GetAxis("Vertical");
 		
+		if(inputType == InputType.Keyboard) {
+			if(Input.GetKeyDown(KeyCode.Space)) {
+				jump = true;
+			}
+			if(Input.GetKeyDown(KeyCode.E)) {
+				attack = true;
+			}
+			x = Input.GetAxis("Horizontal");
+			y = -Input.GetAxis("Vertical");
+			z = Input.GetAxis("Mouse X");
+		}
+		
+		
+		if(networkView.isMine) {		
 			RaycastHit hit;
 			float dist = 0;
 			GameObject obj = null;
@@ -80,7 +88,7 @@ public class PlayerController : MonoBehaviour {
 				verticalSpeed -= gravity * Time.deltaTime;
 			}
 		
-			if(cc.isGrounded && (Input.GetKeyDown(KeyCode.Space) || Input.GetButtonDown("Fire1"))) {
+			if(cc.isGrounded && jump) {
 				verticalSpeed = Mathf.Sqrt(2 * gravity)*jumpMultiplier;
 			}
 			if(dist < 0.1f && obj != null) {
@@ -88,16 +96,9 @@ public class PlayerController : MonoBehaviour {
 				float desiredDist = (0.5f*cc.height + 0.5f*obj.transform.localScale.y);
 				verticalSpeed = desiredDist-actualDist;
 			}
-			float camHorizontal = Input.GetAxis("Mouse X");
-			float joyHorizontal = Input.GetAxis("JoyZ");
-			if(joyHorizontal != 0) {
-				Debug.Log(joyHorizontal);
-				camHorizontal = joyHorizontal;
-			}
-			cc.transform.Rotate(Vector3.up*camHorizontal*Time.deltaTime*turnMultiplier*ratio);
-			cc.Move(cc.transform.rotation*(new Vector3(horizontal*moveMultiplier*ratio,verticalSpeed*ratio,vertical*moveMultiplier*ratio))*Time.deltaTime);
+			cc.transform.Rotate(Vector3.up*z*Time.deltaTime*turnMultiplier*ratio);
+			cc.Move(cc.transform.rotation*(new Vector3(x*moveMultiplier*ratio,verticalSpeed*ratio,-y*moveMultiplier*ratio))*Time.deltaTime);
 		}
-		*/
 	}
 	void OnControllerColliderHit(ControllerColliderHit hit) {
 		if(hit.collider.name == "KillBox") {

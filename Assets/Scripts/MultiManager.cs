@@ -23,20 +23,12 @@ public class MultiManager : MonoBehaviour {
 				}
 			}
 		}
-		if(Input.GetKeyDown(KeyCode.Space)) {
+		if(Input.GetKeyDown(KeyCode.Space)) 
+		{
 			JoystickButton(0,9);
 		}
 	}
 	void JoystickButton(int joystick, int button) {
-		Debug.Log(button);
-		
-		foreach(PlayerController pc in players) {
-			if(pc.playerNumber == joystick) {
-				pc.ButtonPressed(button);
-				return;
-			}
-		}		
-					
 		//start button
 		if(button == 9) {
 			//already connected
@@ -62,6 +54,13 @@ public class MultiManager : MonoBehaviour {
 		pc.playerNumber = playerNumber;
 		players.Add(pc);
 		
+		if(playerNumber == 0) {
+			pc.inputType = InputType.Keyboard;
+		}
+		else {
+			pc.inputType = InputType.Gamepad;
+		}
+		
 		Camera c;
 		if(players.Count == 1) {
 			c = GetComponentInChildren<Camera>();
@@ -77,6 +76,8 @@ public class MultiManager : MonoBehaviour {
 			sf = c.gameObject.AddComponent<SmoothFollow>();
 		}
 		sf.target = pc.transform;
+		sf.distance = 3;
+		sf.rotationDamping = 15;
 		SmoothLookAt sla = c.GetComponent<SmoothLookAt>();
 		if(sla == null) {
 			sla = c.gameObject.AddComponent<SmoothLookAt>();

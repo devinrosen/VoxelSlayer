@@ -6,9 +6,10 @@ public class Voxel : MonoBehaviour {
 	float speed;
 	float dir = 1;
 	
-	
+	bool dropping;
 	// Use this for initialization
 	void Start () {
+		dropping = false;
 		amplitude = Random.Range(0,0.25f);
 		speed = Random.Range(0,0.5f);
 		if(Random.Range(0.0f,1.0f) < 0.5f) {
@@ -21,11 +22,25 @@ public class Voxel : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		Vector3 v = transform.localPosition;
-		v.y += speed*Time.deltaTime*dir;
-		if(v.y > amplitude || v.y < -amplitude) {
-			dir *= -1;
+		if(!dropping) {
+			Vector3 v = transform.localPosition;
+			v.y += speed*Time.deltaTime*dir;
+			if(v.y > amplitude || v.y < -amplitude) {
+				dir *= -1;
+			}
+			transform.localPosition = v;
 		}
-		transform.localPosition = v;
+	}
+	public void Drop() {
+		dropping = true;
+		Rigidbody rb = gameObject.AddComponent<Rigidbody>();
+		if(rb != null) {
+			rb.useGravity = true;
+		}
+	}
+	void OnCollisionEnter(Collision collision) {
+		if(collision.collider.tag == "KillBox") {
+			Destroy(gameObject);
+		}
 	}
 }

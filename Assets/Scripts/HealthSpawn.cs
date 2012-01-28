@@ -27,8 +27,9 @@ public class HealthSpawn : MonoBehaviour
 	void respawn()
 	{
 		Debug.Log("respawn()");
-		transform.position = spawn.transform.position;
-		transform.rotation = spawn.transform.rotation;
+		transform.position = new Vector3(0,7,0);
+		//spawn.transform.position;
+		//transform.rotation = spawn.transform.rotation;
 		currentHealth = initHealth;
 	}
 }

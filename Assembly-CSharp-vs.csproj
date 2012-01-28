@@ -49,6 +49,7 @@
      <Compile Include="Assets\Scripts\Boards\RectangularBoard.cs" />
      <Compile Include="Assets\Scripts\CamController.cs" />
      <Compile Include="Assets\Scripts\HealthSpawn.cs" />
+     <Compile Include="Assets\Scripts\InputType.cs" />
      <Compile Include="Assets\Scripts\KillBox.cs" />
      <Compile Include="Assets\Scripts\KillBoxManager.cs" />
      <Compile Include="Assets\Scripts\MultiManager.cs" />
@@ -57,6 +58,7 @@
      <Compile Include="Assets\Scripts\TurretGun\Bullet.cs" />
      <Compile Include="Assets\Scripts\TurretGun\TurretGun.cs" />
      <Compile Include="Assets\Scripts\Voxel.cs" />
+     <None Include="Assets\Standard Assets\Skyboxes\ skybox info.txt" />
  <Reference Include="Library\ScriptAssemblies\Assembly-UnityScript-firstpass">
  <HintPath>Library\ScriptAssemblies\Assembly-UnityScript-firstpass.dll</HintPath>
  </Reference>

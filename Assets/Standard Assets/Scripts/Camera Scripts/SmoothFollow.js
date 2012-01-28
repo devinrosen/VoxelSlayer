@@ -29,11 +29,11 @@ function LateUpdate () {
 		return;
 	
 	var mouseY = Input.GetAxis("Mouse Y");
-	var joy = Input.GetAxis("JoyW");
-		if(joy != 0) {
-			Debug.Log(joy);
-			mouseY = joy;
-		}
+	//var joy = Input.GetAxis("JoyW");
+	//	if(joy != 0) {
+	//		Debug.Log(joy);
+	//		mouseY = joy;
+	//	}
 	height -= mouseY*Time.deltaTime*10;
 	height = Mathf.Clamp(height,0.1f,1.5f);
 	
