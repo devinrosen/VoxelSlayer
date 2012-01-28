@@ -1,1 +1,15 @@
 .DS_Store
+Library/AnnotationManager
+Library/assetDatabase3
+Library/AssetImportState
+Library/AssetServerCacheV3
+Library/cache/
+Library/EditorUserBuildSettings.asset
+Library/expandedItems
+Library/FailedAssetImports.txt
+Library/guidmapper
+Library/metadata/
+Library/MonoManager.asset
+Library/previews/
+Library/ScriptAssemblies/
+Library/ScriptMapper
