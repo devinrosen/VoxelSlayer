@@ -23,6 +23,9 @@ public class MultiManager : MonoBehaviour {
 				}
 			}
 		}
+		if(Input.GetKeyDown(KeyCode.Space)) {
+			JoystickButton(0,9);
+		}
 	}
 	void JoystickButton(int joystick, int button) {
 		Debug.Log(button);
@@ -32,8 +35,7 @@ public class MultiManager : MonoBehaviour {
 				pc.ButtonPressed(button);
 				return;
 			}
-		}
-					
+		}		
 					
 		//start button
 		if(button == 9) {
@@ -87,6 +89,16 @@ public class MultiManager : MonoBehaviour {
 			cameras[0].rect = new Rect(0,0,0.5f,1);
 			cameras[1].rect = new Rect(0.5f,0,0.5f,1);
 		}
-		
+		else if(cameras.Count == 3) {
+			cameras[0].rect = new Rect(0,0,0.5f,0.5f);
+			cameras[1].rect = new Rect(0.5f,0,0.5f,0.5f);
+			cameras[2].rect = new Rect(0,0.5f,0.5f,0.5f);
+		}
+		else if(cameras.Count == 4) {
+			cameras[0].rect = new Rect(0,0,0.5f,0.5f);
+			cameras[1].rect = new Rect(0.5f,0,0.5f,0.5f);
+			cameras[2].rect = new Rect(0,0.5f,0.5f,0.5f);
+			cameras[3].rect = new Rect(0.5f,0.5f,0.5f,0.5f);
+		}
 	}
 }

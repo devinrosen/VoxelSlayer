@@ -49,12 +49,16 @@ public class PlayerController : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		//jump
-		if(Input.GetButtonDown("joystick "+playerNumber+" button 1")) {
+		try {
+			if(Input.GetButtonDown("joystick "+playerNumber+" button 1")) {
 				
+			}
+			//hit
+			if(Input.GetButtonDown("joystick "+playerNumber+" button 0")) {
+				
+			}
 		}
-		//hit
-		if(Input.GetButtonDown("joystick "+playerNumber+" button 0")) {
-				
+		catch(System.Exception e) {
 		}
 
 		/*
