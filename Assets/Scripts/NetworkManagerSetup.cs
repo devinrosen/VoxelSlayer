@@ -3,6 +3,7 @@ using System.Collections;
 
 public class NetworkManagerSetup : MonoBehaviour 
 {
+	public bool networkMode = true;
 	int maxPlayers = 2;
 	int portNumber = 11111;
 	string serverName = "Standard Server Name";
@@ -22,14 +23,16 @@ public class NetworkManagerSetup : MonoBehaviour
 	
 	void OnGUI () 
 	{
-		if(GUI.Button(new Rect(10,70,70,50),"Start Server"))
-		{
-			startServer();
-		}
+		if(networkMode) {
+			if(GUI.Button(new Rect(10,70,70,50),"Start Server"))
+			{
+				startServer();
+			}
 	
-		if (GUI.Button(new Rect(10,130,70,30),"Join Server"))
-		{
-			joinServer();
+			if (GUI.Button(new Rect(10,130,70,30),"Join Server"))
+			{
+				joinServer();
+			}
 		}
 	}
 	// Update is called once per frame

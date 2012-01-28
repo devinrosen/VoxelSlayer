@@ -51,6 +51,7 @@
      <Compile Include="Assets\Scripts\HealthSpawn.cs" />
      <Compile Include="Assets\Scripts\KillBox.cs" />
      <Compile Include="Assets\Scripts\KillBoxManager.cs" />
+     <Compile Include="Assets\Scripts\MultiManager.cs" />
      <Compile Include="Assets\Scripts\NetworkManagerSetup.cs" />
      <Compile Include="Assets\Scripts\PlayerController.cs" />
      <Compile Include="Assets\Scripts\TurretGun\Bullet.cs" />

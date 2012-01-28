@@ -73,6 +73,9 @@ public class TurretGun : MonoBehaviour {
 		f.y = 0;
 		
 		GameObject player = GameObject.FindWithTag("Player");
+		if(player == null) {
+			return;
+		}
 		f = player.transform.position - fire.position;
 		Vector3 cross = Vector3.Cross(Vector3.up,-fire.position);
 		for(float i = -0.5f*(bulletsPerShot-1); i <= 0.5f*(bulletsPerShot-1); i++) {

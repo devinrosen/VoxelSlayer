@@ -2,6 +2,8 @@ using UnityEngine;
 using System.Collections;
 
 public class PlayerController : MonoBehaviour {
+	public int playerNumber;
+	
 	public float massMax = 1000;
 	public float massMin = 1;
 	float mass;
@@ -37,8 +39,25 @@ public class PlayerController : MonoBehaviour {
 		mass = m;
 		ratio = (massMax - mass)/massMax;
 	}
+	
+	public void ButtonPressed(int button) {
+		Debug.Log(playerNumber +":"+button);
+	}
+	public void Axis(int axis, float value) {
+	}
+	
 	// Update is called once per frame
 	void Update () {
+		//jump
+		if(Input.GetButtonDown("joystick "+playerNumber+" button 1")) {
+				
+		}
+		//hit
+		if(Input.GetButtonDown("joystick "+playerNumber+" button 0")) {
+				
+		}
+
+		/*
 		if(networkView.isMine) {
 			horizontal = Input.GetAxis("Horizontal");
 			vertical = Input.GetAxis("Vertical");
@@ -74,6 +93,7 @@ public class PlayerController : MonoBehaviour {
 			cc.transform.Rotate(Vector3.up*camHorizontal*Time.deltaTime*turnMultiplier*ratio);
 			cc.Move(cc.transform.rotation*(new Vector3(horizontal*moveMultiplier*ratio,verticalSpeed*ratio,vertical*moveMultiplier*ratio))*Time.deltaTime);
 		}
+		*/
 	}
 	void OnControllerColliderHit(ControllerColliderHit hit) {
 		if(hit.collider.name == "KillBox") {
