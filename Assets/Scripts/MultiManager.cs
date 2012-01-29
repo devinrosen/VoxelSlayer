@@ -16,6 +16,8 @@ public class MultiManager : MonoBehaviour {
 	public GameObject fighterPrefab;
 	public GameObject turretPrefab;
 	
+	IBoard board;
+	
 	List<Player> players;
 	List<Camera> cameras;
 	public int[] connected;
@@ -23,6 +25,16 @@ public class MultiManager : MonoBehaviour {
 	public float guiMargin = 0.05f;
 	// Use this for initialization
 	void Start () {
+		foreach(Transform t in transform) {
+			if(board == null) {
+				board = (IBoard)t.GetComponent("IBoard");
+			}
+		}
+		if(board == null) {
+			Debug.Log("Board null");
+		}
+		
+		
 		players = new List<Player>();
 		cameras = new List<Camera>();
 		connected = new int[]{-1,-1,-1,-1};	
@@ -141,7 +153,7 @@ public class MultiManager : MonoBehaviour {
 		Player p = go.AddComponent<Player>();
 		p.PlayerNumber = playerNumber;
 		players.Add(p);
-		p.transform.position = CircularBoard.Instance.GetSpawnPoint();
+		p.transform.position = MultiManager.Instance.Board.GetSpawnPoint();
 		
 		go = (GameObject)Instantiate(fighterPrefab);
 		go.transform.parent = p.transform;
@@ -219,5 +231,10 @@ public class MultiManager : MonoBehaviour {
 			}
 		}
 		return null;
+	}
+	public IBoard Board {
+		get { 
+			return board;
+		}
 	}
 }

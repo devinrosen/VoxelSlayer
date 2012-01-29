@@ -14,7 +14,7 @@ public class HealthBall : MonoBehaviour {
 	}
 	void OnCollisionEnter(Collision collision) {
 		if(collision.collider.tag == "KillBox") {
-			transform.position = CircularBoard.Instance.GetSpawnPoint();
+			transform.position = MultiManager.Instance.Board.GetSpawnPoint();
 		}
 	}
 }

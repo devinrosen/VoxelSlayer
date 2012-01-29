@@ -104,7 +104,7 @@ public class PlayerController : MonoBehaviour, IInputHandler {
 	}
 	public void Spawn() {
 		player.SetMass(player.Mass*0.9f);
-		transform.position = CircularBoard.Instance.GetSpawnPoint();
+		transform.position = MultiManager.Instance.Board.GetSpawnPoint();
 	}
 	void OnControllerColliderHit(ControllerColliderHit hit) {
 		if(hit.collider.tag == "Bullet") {

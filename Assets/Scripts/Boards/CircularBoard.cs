@@ -1,16 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class CircularBoard : MonoBehaviour {
-	private static CircularBoard instance = null;
-	public static CircularBoard Instance {
-		get {
-			if(instance == null) {
-				instance = FindObjectOfType(typeof(CircularBoard)) as CircularBoard;
-			}
-			return instance;
-		}
-	}
+public class CircularBoard : MonoBehaviour,IBoard {
 	public GameObject healthDropPrefab;
 	
 	float delta;
