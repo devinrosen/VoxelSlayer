@@ -1,9 +1,8 @@
 using UnityEngine;
 using System.Collections;
 
-public class RectangularBoard : MonoBehaviour, IBoard {
-	public int width = 10;
-	public int height = 10;
+public class BlackHole : MonoBehaviour, IBoard {
+	public int radius = 10;
 
 	float delta;
 	float deltaMax;
@@ -24,14 +23,23 @@ public class RectangularBoard : MonoBehaviour, IBoard {
 		delta += Time.deltaTime;
 		if(delta > deltaMax) {
 			delta = 0;
-			deltaMax = Random.Range(0.5f,1.5f);
-			int i = Random.Range(0,voxels.Length);
-			if(voxels.Length > 0 && voxels[i] != null) {
-				voxels[i].Drop();
+			deltaMax = 0.1f;// = Random.Range(0.5f,1.5f);
+			
+			Voxel voxel = null;
+			float d = 1000;
+			foreach(Voxel v in voxels) {
+				if(v != null) {
+					if(voxel == null) {
+						voxel = v;
+					}
+					float dist = v.transform.position.magnitude;
+					if(dist < d) {
+						voxel = v;
+						d = dist;
+					}
+				}
 			}
-			else {
-				voxels = GetComponentsInChildren<Voxel>();
-			}
+			voxel.Drop();
 		}
 	}
 	public void DropHealth(){
@@ -61,12 +69,14 @@ public class RectangularBoard : MonoBehaviour, IBoard {
 			Destroy(t.gameObject);
 		}
 		
-		for(int w = -width; w < width; w++) {
-			for(int h = -height; h < height; h++) {
-				GameObject go = GameObject.CreatePrimitive(PrimitiveType.Cube);
-				go.AddComponent<Voxel>();
-				go.transform.parent = transform;
-				go.transform.localPosition = new Vector3(w,0,h);
+		for(int w = -radius; w < radius; w++) {
+			for(int h = -radius; h < radius; h++) {
+				if(Mathf.Sqrt(w*w+h*h) < radius && (w != 0 || h != 0)) {
+					GameObject go = GameObject.CreatePrimitive(PrimitiveType.Cube);
+					go.AddComponent<Voxel>();
+					go.transform.parent = transform;
+					go.transform.localPosition = new Vector3(w,0,h);
+				}
 			}
 		}
 		

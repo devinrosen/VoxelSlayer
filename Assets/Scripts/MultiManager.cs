@@ -15,25 +15,28 @@ public class MultiManager : MonoBehaviour {
 	
 	public GameObject fighterPrefab;
 	public GameObject turretPrefab;
+	public GameObject healthPrefab;
 	
-	IBoard board;
+	GameObject board;
 	
 	List<Player> players;
 	List<Camera> cameras;
 	public int[] connected;
 	Camera guiCamera;
 	public float guiMargin = 0.05f;
+	
+	public string[] boards;
+	int currentBoard;
+	
+	public int PlayerCount {
+		get {
+			return players.Count;
+		}
+	}
 	// Use this for initialization
 	void Start () {
-		foreach(Transform t in transform) {
-			if(board == null) {
-				board = (IBoard)t.GetComponent("IBoard");
-			}
-		}
-		if(board == null) {
-			Debug.Log("Board null");
-		}
-		
+		currentBoard = 0;
+		SelectNewBoard();
 		
 		players = new List<Player>();
 		cameras = new List<Camera>();
@@ -43,7 +46,8 @@ public class MultiManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		for(int j = 1; j <= 2; j++) {
+		//This is to start or remove a player
+		for(int j = 1; j <= 4; j++) {
 			for(int b = 0; b <= 10; b++) {
 				if(Input.GetButtonDown("joystick "+j+" button "+b+"")) {
 					JoystickButton(j,b);
@@ -58,6 +62,40 @@ public class MultiManager : MonoBehaviour {
 		{
 			JoystickButton(0,8);
 		}
+		//This is to start or remove a player
+		
+		//This is to handle other stuff
+		//only reset board if no players
+		if(players.Count == 0) {
+			if(Input.GetKeyDown(KeyCode.Return)) {
+				board.SendMessage("ResetBoard");
+			}
+			if(Input.GetKeyDown(KeyCode.RightArrow)) {
+				currentBoard++;
+				if(currentBoard >= boards.Length) {
+					currentBoard = 0;
+				}
+				SelectNewBoard();
+			}
+			else if(Input.GetKeyDown(KeyCode.LeftArrow)) {
+				currentBoard--;
+				if(currentBoard < 0) {
+					currentBoard = boards.Length - 1;
+				}
+				SelectNewBoard();
+			}
+		}
+		
+	}
+	void SelectNewBoard() {
+		Debug.Log("SelectNewBoard()");
+		if(board != null) {
+			Destroy(board.gameObject);
+		}
+		board = new GameObject(boards[currentBoard]);
+		board.transform.parent = transform;
+		board.transform.position = Vector3.zero;
+		board.AddComponent(boards[currentBoard]);
 	}
 	void OnGUI() {
 		if(players.Count == 1) {
@@ -198,6 +236,11 @@ public class MultiManager : MonoBehaviour {
 		go = (GameObject)Instantiate(turretPrefab);
 		go.transform.parent = p.transform;
 		go.transform.localPosition = Vector3.zero;
+		
+		//if first player to join reset the baord
+		if(players.Count == 1) {
+			board.SendMessage("ResetBoard");
+		}
 	}
 	void UpdateCameras() {
 		if(cameras.Count == 1) {
@@ -234,7 +277,7 @@ public class MultiManager : MonoBehaviour {
 	}
 	public IBoard Board {
 		get { 
-			return board;
+			return (IBoard)board.GetComponent("IBoard");
 		}
 	}
 }

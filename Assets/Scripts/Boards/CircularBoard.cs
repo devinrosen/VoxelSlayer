@@ -2,14 +2,23 @@ using UnityEngine;
 using System.Collections;
 
 public class CircularBoard : MonoBehaviour,IBoard {
-	public GameObject healthDropPrefab;
-	
 	float delta;
 	float deltaMax;
 	
-	public int radius;
+	public int radius = 10;
 	Voxel[] voxels;
 	void Awake () {
+		ResetBoard();
+	}
+	// Use this for initialization
+	void Start () {
+		
+	}
+	public void ResetBoard() {
+		foreach(Transform t in transform) {
+			Destroy(t.gameObject);
+		}
+		
 		for(int w = -radius; w < radius; w++) {
 			for(int h = -radius; h < radius; h++) {
 				if(Mathf.Sqrt(w*w+h*h) < radius) {
@@ -21,13 +30,10 @@ public class CircularBoard : MonoBehaviour,IBoard {
 			}
 		}
 		voxels = GetComponentsInChildren<Voxel>();
-	}
-	// Use this for initialization
-	void Start () {
+		
 		delta = 0;
 		deltaMax = Random.Range(0.5f,1.5f);
 	}
-	
 	// Update is called once per frame
 	void Update () {
 		delta += Time.deltaTime;
@@ -61,7 +67,8 @@ public class CircularBoard : MonoBehaviour,IBoard {
 		return v;
 	}
 	public void DropHealth() {
-		GameObject go = (GameObject)Instantiate(healthDropPrefab);
+		GameObject go = (GameObject)Instantiate(MultiManager.Instance.healthPrefab);
 		go.transform.position = GetSpawnPoint();
+		go.transform.parent = transform;
 	}
 }
