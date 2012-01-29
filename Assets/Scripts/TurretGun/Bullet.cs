@@ -2,8 +2,16 @@ using UnityEngine;
 using System.Collections;
 
 public class Bullet : MonoBehaviour {
-	public GameObject sourceGameObject;
-	
+	GameObject sourceGameObject;
+	public GameObject SourceGameObject {
+		set {
+			Debug.Log("Set SourceGameObject: " + value.name);
+			sourceGameObject = value;
+		}
+		get {
+			return sourceGameObject;
+		}
+	}
 	float minrot = 250;
 	float maxrot = 450;
 	float xRot;
@@ -34,8 +42,21 @@ public class Bullet : MonoBehaviour {
 			
 		
 		if(_collider.tag == "Player") {
+			Debug.Log("Bullet PlayerController");
 			Player p = _collider.gameObject.transform.parent.GetComponent<Player>();
+			
 			if(p != null) {
+				Debug.Log("PlayerHit: " + p.name);
+				if(sourceGameObject != null) {
+					Debug.Log("Source: " + sourceGameObject.name);
+				}
+				else {
+					Debug.Log("Source: null");
+				}
+				//dont destroy bullet if it hits the player that shot it
+				if(sourceGameObject == p.gameObject) {
+					return;
+				}
 				//if big bullet
 				if(sourceGameObject == null) {
 					p.SetMass(p.Mass - 25);

@@ -16,13 +16,17 @@ public class PlayerController : MonoBehaviour, IInputHandler {
 	
 	Player player;
 	Animation anim;
+	Vector3 velocity;
 	// Use this for initialization
 	void Start () {
 		player = transform.parent.GetComponent<Player>();
 		cc = gameObject.GetComponent<CharacterController>();
 		anim = gameObject.GetComponentInChildren<Animation>();
 		foreach(AnimationState animState in anim) {
-			animState.speed = 5;
+			if(animState.name == "Striking_3")
+				animState.speed = 10;
+			else
+				animState.speed = 5;
 		}
 		SkinnedMeshRenderer[] smrs = GetComponentsInChildren<SkinnedMeshRenderer>();
 		foreach(SkinnedMeshRenderer smr in smrs) {
@@ -47,16 +51,22 @@ public class PlayerController : MonoBehaviour, IInputHandler {
 		if(player.Mass < 10) {
 			player.SetPlayerMode(PlayerMode.Turret);
 		}
+		else if( velocity.x == 0 && velocity.z == 0) {
+			anim.CrossFade("neutral");
+		}
+		else if(velocity.x != 0 || velocity.z != 0) {
+			anim.CrossFade("running");
+		}
 	}
 	public void HandleInput(bool jump, bool attack,bool leftPunch,bool rightPunch, float x, float y, float z, float w) {
 		if(cc == null) {
 			return;
 		}
 		if(leftPunch) {
-			anim.Play("Armature_001Action");
-			//anim.Blend("Armature_001Action",1,1);	
+			anim.Play("Striking_1");
 		}
 		if(rightPunch) {
+			anim.Play("Striking_3");
 		}
 		RaycastHit hit;
 		float dist = 0;
@@ -79,27 +89,38 @@ public class PlayerController : MonoBehaviour, IInputHandler {
 			float desiredDist = (0.5f*cc.height + 0.5f*obj.transform.localScale.y);
 			verticalSpeed = desiredDist-actualDist;
 		}
+		
+		velocity.y = verticalSpeed;
+		Vector3 curPosition = cc.transform.position;
 		cc.transform.Rotate(Vector3.up*z*Time.deltaTime*turnMultiplier*player.Ratio);
 		cc.Move(cc.transform.rotation*(new Vector3(x*moveMultiplier*player.Ratio,verticalSpeed*player.Ratio,-y*moveMultiplier*player.Ratio))*Time.deltaTime);
+		velocity.x = cc.transform.position.x - curPosition.x;
+		velocity.z = cc.transform.position.z  - curPosition.z;
 		
 		if(attack) {
+			anim.Play("Striking_2");
 			Fire();
 		}
 	}
 	void Fire() {
 		float bulletScale = 0.1f;
+		
 		GameObject go = GameObject.CreatePrimitive(PrimitiveType.Cube);
-		Bullet bullet = go.AddComponent<Bullet>();
-		bullet.sourceGameObject = gameObject;
 		go.tag = "Bullet";
 		go.transform.localScale = new Vector3(bulletScale,bulletScale,bulletScale);
+		
+		Bullet bullet = go.AddComponent<Bullet>();
+		bullet.SourceGameObject = transform.parent.gameObject;
+		
+		
 		Collider c = go.GetComponent<Collider>();
 		c.isTrigger = true;
+		
 		Rigidbody rb = go.AddComponent<Rigidbody>();
 		rb.useGravity = false;
 		rb.AddForce(transform.forward*750);
-		go.AddComponent<Bullet>();
-		go.transform.position = transform.position+new Vector3(0,0.5f*cc.height,0);
+		
+		go.transform.position = transform.position+new Vector3(0,0.5f*transform.localScale.y,0);
 		player.SetMass(player.Mass-5);
 	}
 	public void Spawn() {
@@ -108,7 +129,11 @@ public class PlayerController : MonoBehaviour, IInputHandler {
 	}
 	void OnControllerColliderHit(ControllerColliderHit hit) {
 		if(hit.collider.tag == "Bullet") {
-			player.SetMass(player.Mass-20);
+			Bullet bullet = hit.collider.GetComponent<Bullet>();
+			if(bullet.SourceGameObject != player.gameObject) {
+				Debug.Log("PlayerController Bullet");
+				player.SetMass(player.Mass-20);
+			}
 		}
 		if(hit.collider.name == "KillBox") {
 			Spawn();

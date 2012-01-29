@@ -105,6 +105,16 @@ public class Player : MonoBehaviour {
 			if(Input.GetKey(KeyCode.S)) {
 				y = 1;
 			}
+			if(Input.GetMouseButtonDown(0))
+			{
+				//left click;
+				leftPunch = true;
+			}
+			if(Input.GetMouseButtonDown(1))
+			{
+				//right click;
+				rightPunch = true;
+			}
 			z = Input.GetAxis("Mouse X");
 		}
 		if(handler != null) {
