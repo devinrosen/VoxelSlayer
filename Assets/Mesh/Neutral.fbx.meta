@@ -1,0 +1,158 @@
+fileFormatVersion: 1
+guid: 6695db99e31c141aa9005482125c5223
+ModelImporter:
+  importerVersion: 7
+  meshes:
+    scaleFactor: 0.01
+    useFileUnits: 1
+    meshCompression: 0
+    generateColliders: 0
+    swapUVs: 0
+  tangentSpace:
+    normalImportMode: 0
+    tangentImportMode: 1
+    smoothingAngle: 60
+    splitTangents: 1
+  materials:
+    generation: 1
+  animations:
+    generation: 3
+    bakeAnimations: 0
+    animationCompression: 1
+    animationWrapMode: 0
+    splitAnimations: 1
+  nodeInfo:
+    Shin_L:
+    - 100000
+    - 400000
+    L_LowerArm:
+    - 100002
+    - 400002
+    Cube_009:
+    - 100004
+    - 400004
+    - 13700000
+    Head:
+    - 100006
+    - 400006
+    Femur_R_002:
+    - 100008
+    - 400008
+    Cylinder_001:
+    - 100010
+    - 400010
+    - 13700002
+    Cube_003:
+    - 100012
+    - 400012
+    - 13700004
+    Cube_001:
+    - 100014
+    - 400014
+    - 13700006
+    R_UpperArm:
+    - 100016
+    - 400016
+    Cube_014:
+    - 100018
+    - 400018
+    - 13700008
+    Cube_011:
+    - 100020
+    - 400020
+    - 13700010
+    Cube_008:
+    - 100022
+    - 400022
+    - 13700012
+    Cube_012:
+    - 100024
+    - 400024
+    - 13700014
+    Armature_001:
+    - 100026
+    - 400026
+    Cube:
+    - 100028
+    - 400028
+    - 13700016
+    femur_L:
+    - 100030
+    - 400030
+    L_Fist:
+    - 100032
+    - 400032
+    Cylinder:
+    - 100034
+    - 400034
+    - 13700018
+    Cube_002:
+    - 100036
+    - 400036
+    - 13700020
+    Femur_R:
+    - 100038
+    - 400038
+    Cube_007:
+    - 100040
+    - 400040
+    - 13700022
+    Foot_L:
+    - 100042
+    - 400042
+    Shin_R:
+    - 100044
+    - 400044
+    L_UpperArm:
+    - 100046
+    - 400046
+    R_LowerArm:
+    - 100048
+    - 400048
+    Cube_006:
+    - 100050
+    - 400050
+    - 13700024
+    Cube_013:
+    - 100052
+    - 400052
+    - 13700026
+    Cube_004:
+    - 100054
+    - 400054
+    - 13700028
+    R_Fist:
+    - 100056
+    - 400056
+    Cube_005:
+    - 100058
+    - 400058
+    - 13700030
+    BackBone:
+    - 100060
+    - 400060
+    //RootNode:
+    - 100062
+    - 400062
+    - 11100000
+AssetImporter:
+  importerVersion: 1
+  fileIDToRecycleName:
+    4300000: Cylinder
+    4300002: Cube_009
+    4300004: Cube_008
+    4300006: Cube_011
+    4300008: Cylinder_001
+    4300010: Cube_013
+    4300012: Cube_012
+    4300014: Cube_014
+    4300016: Cube_003
+    4300018: Cube_002
+    4300020: Cube_005
+    4300022: Cube_004
+    4300024: Cube_006
+    4300026: Cube_007
+    4300028: Cube_001
+    4300030: Cube
+    7400000: Default Take //// Neutral
+    7400002: Armature_001Action //// Neutral

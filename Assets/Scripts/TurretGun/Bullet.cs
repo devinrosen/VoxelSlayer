@@ -2,6 +2,8 @@ using UnityEngine;
 using System.Collections;
 
 public class Bullet : MonoBehaviour {
+	public GameObject sourceGameObject;
+	
 	float minrot = 250;
 	float maxrot = 450;
 	float xRot;
@@ -23,12 +25,26 @@ public class Bullet : MonoBehaviour {
 		transform.Rotate(new Vector3(xRot*Time.deltaTime,yRot*Time.deltaTime,0));
 	}
 	void OnTriggerExit(Collider _collider) {
+		if(sourceGameObject != null && _collider.gameObject == sourceGameObject) {
+			return;
+		}
+		
 		if(_collider.tag == "Bullet") {
 		}
 			
 		
 		if(_collider.tag == "Player") {
-			_collider.gameObject.SendMessage("Spawn");
+			Player p = _collider.gameObject.GetComponent<Player>();
+			if(p != null) {
+				//if big bullet
+				if(sourceGameObject == null) {
+					p.SetMass(p.Mass - 25);
+				}
+				//if player bullet
+				else {
+					p.SetMass(p.Mass - 10);
+				}
+			}
 			Destroy(gameObject);
 		}
 		if(_collider.tag == "KillBox") {

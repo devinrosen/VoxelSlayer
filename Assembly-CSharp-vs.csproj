@@ -48,6 +48,7 @@
      <Compile Include="Assets\Scripts\Boards\CircularBoard.cs" />
      <Compile Include="Assets\Scripts\Boards\RectangularBoard.cs" />
      <Compile Include="Assets\Scripts\CamController.cs" />
+     <Compile Include="Assets\Scripts\Fist.cs" />
      <Compile Include="Assets\Scripts\HealthBall.cs" />
      <Compile Include="Assets\Scripts\IInputHandler.cs" />
      <Compile Include="Assets\Scripts\InputType.cs" />

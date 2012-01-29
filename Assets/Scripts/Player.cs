@@ -5,7 +5,7 @@ public class Player : MonoBehaviour {
 	PlayerMode playerMode;
 	public InputType inputType;
 	int playerNumber;
-	float mass;
+	public float mass;
 	IInputHandler handler;
 	
 	float massMax = 1000;
@@ -55,13 +55,15 @@ public class Player : MonoBehaviour {
 	}
 	// Use this for initialization
 	void Start () {
-		SetMass(11);
+		SetMass(100);
 		SetPlayerMode(PlayerMode.Fighter);
 	}
 	// Update is called once per frame
 	void Update () {	
 		bool jump = false;
 		bool attack = false;
+		bool leftPunch = false;
+		bool rightPunch = false;
 		float x = 0;
 		float y = 0;
 		float z = 0;
@@ -73,7 +75,9 @@ public class Player : MonoBehaviour {
 				jump = Input.GetButtonDown("joystick "+playerNumber+" button 1");
 				//attack
 				attack = Input.GetButtonDown("joystick "+playerNumber+" button 0");
-			
+				leftPunch = Input.GetButtonDown("joystick "+playerNumber+" button 4");
+				rightPunch = Input.GetButtonDown("joystick "+playerNumber+" button 5");
+				
 				x = Input.GetAxis("joystick "+playerNumber+" axis x");
 				y = Input.GetAxis("joystick "+playerNumber+" axis y");
 				z = Input.GetAxis("joystick "+playerNumber+" axis z");
@@ -104,13 +108,15 @@ public class Player : MonoBehaviour {
 			z = Input.GetAxis("Mouse X");
 		}
 		if(handler != null) {
-			handler.HandleInput(jump,attack,x,y,z,w);
+			handler.HandleInput(jump,attack,leftPunch,rightPunch,x,y,z,w);
 		}
 		else {
 			Debug.Log("Handler NULL");
 		}
 	}
 	public void SetPlayerMode(PlayerMode mode) {
+		Debug.Log(playerNumber + ":" + mode);
+		mass = 100;
 		playerMode = mode;
 		Transform targetTransform = null;
 		foreach(Transform t in transform) {
