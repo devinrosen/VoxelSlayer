@@ -17,6 +17,7 @@ public class PlayerController : MonoBehaviour, IInputHandler {
 	Player player;
 	Animation anim;
 	Vector3 velocity;
+	float costToShoot = 20;
 	// Use this for initialization
 	void Start () {
 		player = transform.parent.GetComponent<Player>();
@@ -50,6 +51,7 @@ public class PlayerController : MonoBehaviour, IInputHandler {
 		transform.localScale = new Vector3(f,f,f);
 		if(player.Mass < 10) {
 			player.SetPlayerMode(PlayerMode.Turret);
+			player.Die();
 		}
 		else if( velocity.x == 0 && velocity.z == 0) {
 			anim.CrossFade("neutral");
@@ -97,13 +99,13 @@ public class PlayerController : MonoBehaviour, IInputHandler {
 		velocity.x = cc.transform.position.x - curPosition.x;
 		velocity.z = cc.transform.position.z  - curPosition.z;
 		
-		if(attack) {
+		if(attack && player.Mass > costToShoot + 10) {
 			anim.Play("Striking_2");
 			Fire();
 		}
 	}
 	void Fire() {
-		float bulletScale = 0.1f;
+		float bulletScale = 1f;
 		
 		GameObject go = GameObject.CreatePrimitive(PrimitiveType.Cube);
 		go.tag = "Bullet";
@@ -118,10 +120,10 @@ public class PlayerController : MonoBehaviour, IInputHandler {
 		
 		Rigidbody rb = go.AddComponent<Rigidbody>();
 		rb.useGravity = false;
-		rb.AddForce(transform.forward*750);
+		rb.AddForce(transform.forward*1500);
 		
 		go.transform.position = transform.position+new Vector3(0,0.5f*transform.localScale.y,0);
-		player.SetMass(player.Mass-5);
+		player.SetMass(player.Mass-costToShoot);
 	}
 	public void Spawn() {
 		player.SetMass(player.Mass*0.9f);

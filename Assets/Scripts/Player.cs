@@ -8,8 +8,27 @@ public class Player : MonoBehaviour {
 	public float mass;
 	IInputHandler handler;
 	
+	int points = 0;
+	
 	float massMax = 1000;
 	float massMin = 1;
+	
+	public void Die()
+	{
+		points--;
+	}
+	
+	public void Kill()
+	{
+		points += 5;
+	}
+	
+	public int Points
+	{
+		get {
+			return points;
+		}
+	}
 	
 	//dirty trick to not do as much division at runtime
 	float ratio;

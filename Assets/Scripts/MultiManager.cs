@@ -99,18 +99,18 @@ public class MultiManager : MonoBehaviour {
 	}
 	void OnGUI() {
 		if(players.Count == 1) {
-			GUI.Label(new Rect(guiCamera.pixelWidth*guiMargin,guiCamera.pixelHeight*guiMargin,100,30),players[0].Health);
+			GUI.Label(new Rect(guiCamera.pixelWidth*guiMargin,guiCamera.pixelHeight*guiMargin,100,40),"Health: "+players[0].Health + "\r\nScore: "+players[0].Points);
 		}
 		else if(players.Count == 2) {
-			GUI.Label(new Rect(guiCamera.pixelWidth*guiMargin,guiCamera.pixelHeight*guiMargin,100,30),players[0].Health);
-			GUI.Label(new Rect(guiCamera.pixelWidth*(guiMargin+0.5f),guiCamera.pixelHeight*guiMargin,100,30),players[1].Health);
+			GUI.Label(new Rect(guiCamera.pixelWidth*guiMargin,guiCamera.pixelHeight*guiMargin,100,40),"Health: "+players[0].Health + "\r\nScore: "+players[0].Points);
+			GUI.Label(new Rect(guiCamera.pixelWidth*(guiMargin+0.5f),guiCamera.pixelHeight*guiMargin,100,40),"Health: "+players[1].Health + "\r\nScore: "+players[1].Points);
 		}
 		else if(players.Count > 2) {
-			GUI.Label(new Rect(guiCamera.pixelWidth*guiMargin,guiCamera.pixelHeight*(guiMargin+0.5f),100,30),players[0].Health);
-			GUI.Label(new Rect(guiCamera.pixelWidth*(guiMargin+0.5f),guiCamera.pixelHeight*(guiMargin+0.5f),100,30),players[1].Health);
-			GUI.Label(new Rect(guiCamera.pixelWidth*guiMargin,guiCamera.pixelHeight*guiMargin,100,30),players[2].Health);
+			GUI.Label(new Rect(guiCamera.pixelWidth*guiMargin,guiCamera.pixelHeight*(guiMargin+0.5f),100,40),"Health: "+players[0].Health + "\r\nScore: "+players[0].Points);
+			GUI.Label(new Rect(guiCamera.pixelWidth*(guiMargin+0.5f),guiCamera.pixelHeight*(guiMargin+0.5f),100,40),"Health: "+players[1].Health + "\r\nScore: "+players[1].Points);
+			GUI.Label(new Rect(guiCamera.pixelWidth*guiMargin,guiCamera.pixelHeight*guiMargin,100,30),"Health: "+players[2].Health + "\r\nScore: "+players[2].Points);
 			if(players.Count == 4) {
-				GUI.Label(new Rect(guiCamera.pixelWidth*(guiMargin+0.5f),guiCamera.pixelHeight*guiMargin,100,30),players[3].Health);
+				GUI.Label(new Rect(guiCamera.pixelWidth*(guiMargin+0.5f),guiCamera.pixelHeight*guiMargin,100,40),"Health: "+players[3].Health + "\r\nScore: "+players[3].Points);
 			}
 		}
 	}

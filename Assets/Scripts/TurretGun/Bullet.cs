@@ -64,6 +64,10 @@ public class Bullet : MonoBehaviour {
 				//if player bullet
 				else {
 					p.SetMass(p.Mass - 10);
+					if(p.Mass < 10) {
+						Player opponent = sourceGameObject.GetComponent<Player>();
+						opponent.Kill();
+					}
 				}
 			}
 			Destroy(gameObject);
