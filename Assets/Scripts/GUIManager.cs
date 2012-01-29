@@ -49,6 +49,10 @@ public class GUIManager : MonoBehaviour
 		
 	void Update()
 	{
+		if(Input.GetKeyDown(KeyCode.Escape) && current != Stage.Play){
+			Application.Quit();
+		}
+		
 		if (MultiManager.Instance.PlayerCount > 0 && current != Stage.Play){
 			current = Stage.Play;
 			title.active = false;
