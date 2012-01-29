@@ -33,7 +33,10 @@ public class Voxel : MonoBehaviour {
 	}
 	public void Drop() {
 		dropping = true;
-		Rigidbody rb = gameObject.AddComponent<Rigidbody>();
+		Rigidbody rb = gameObject.GetComponent<Rigidbody>();
+		if(rb == null) {
+			rb = gameObject.AddComponent<Rigidbody>();
+		}
 		if(rb != null) {
 			rb.useGravity = true;
 		}

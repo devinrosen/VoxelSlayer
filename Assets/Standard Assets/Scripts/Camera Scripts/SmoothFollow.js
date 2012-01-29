@@ -66,5 +66,8 @@ function LateUpdate () {
 	
 	// Always look at the target
 	transform.LookAt (target);
-	distance = player.Mass/200.0 * 10.0;
+	if(player != null && player.IsFighter) {
+		distance = player.Mass/200.0 * 10.0;
+	}
+	//distance == ;
 }

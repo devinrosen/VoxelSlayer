@@ -3,15 +3,27 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class MultiManager : MonoBehaviour {
-	public GameObject playerPrefab;
-	List<PlayerController> players;
+	private static MultiManager instance = null;
+	public static MultiManager Instance {
+		get {
+			if(instance == null) {
+				instance = FindObjectOfType(typeof(MultiManager)) as MultiManager;
+			}
+			return instance;
+		}
+	}
+	
+	public GameObject fighterPrefab;
+	public GameObject turretPrefab;
+	
+	List<Player> players;
 	List<Camera> cameras;
-	int[] connected;
+	public int[] connected;
 	Camera guiCamera;
 	public float guiMargin = 0.05f;
 	// Use this for initialization
 	void Start () {
-		players = new List<PlayerController>();
+		players = new List<Player>();
 		cameras = new List<Camera>();
 		connected = new int[]{-1,-1,-1,-1};	
 		guiCamera = GameObject.Find("GUICamera").camera;
@@ -29,6 +41,10 @@ public class MultiManager : MonoBehaviour {
 		if(Input.GetKeyDown(KeyCode.Space)) 
 		{
 			JoystickButton(0,9);
+		}
+		if(Input.GetKeyDown(KeyCode.Escape)) 
+		{
+			JoystickButton(0,8);
 		}
 	}
 	void OnGUI() {
@@ -49,63 +65,131 @@ public class MultiManager : MonoBehaviour {
 		}
 	}
 	void JoystickButton(int joystick, int button) {
+		Debug.Log(joystick+":"+button);
 		//start button
-		if(button == 9) {
+		if(button == 9) 
+		{
 			//already connected
-			for(int i = 0; i < 4; i++) {
-				if(connected[i] == joystick) {
+			for(int i = 0; i < 4; i++) 
+			{
+				if(connected[i] == joystick) 
+				{
+					
+					Debug.Log(joystick + " already connected");
 					return;
 				}
 			}
 			//connect
-			for(int i = 0; i < 4; i++) {
-				if(connected[i] == -1) {
+			for(int i = 0; i < 4; i++) 
+			{
+				if(connected[i] == -1) 
+				{
 					connected[i] = joystick;
 					CreatePlayer(joystick);
 					return;
 				}
 			}
 		}
+		
+		/*End Button*/
+		if (button == 8)
+		{
+			for(int i = 0; i < 4; i++) {
+				if(connected[i] == joystick) 
+				{
+					connected[i] = -1;
+					RemovePlayer(joystick);
+					return;
+				}
+			}	
+		}
+	}
+	
+	void RemovePlayer(int playerNumber)
+	{
+		Debug.Log("RemovePlayer: " + playerNumber);
+		Player player = null;
+		foreach(Player p in players) {
+			if(p.PlayerNumber == playerNumber) {
+				player = p;
+			}
+		}
+		if(player != null) {
+			players.Remove(player);
+			Destroy(player.gameObject);
+		}
+		//only remove a camera if there is one to remove
+		if(cameras.Count > 1) {
+			Camera cam = null;
+			foreach(Camera c in cameras) {
+				if(c.name == "Camera"+playerNumber) {
+					cam = c;
+				}
+			}
+			if(cam != null) {
+				cameras.Remove(cam);
+				Destroy(cam.gameObject);
+			}
+			
+		}
+		UpdateCameras();			
 	}
 	void CreatePlayer(int playerNumber){
-		GameObject go = (GameObject)Instantiate(playerPrefab);
+		Debug.Log("CreatePlayer: "+playerNumber);
+		GameObject go = new GameObject("Player"+playerNumber);
 		go.transform.parent = transform;
-		PlayerController pc = go.GetComponent<PlayerController>();
-		pc.playerNumber = playerNumber;
-		players.Add(pc);
+		Player p = go.AddComponent<Player>();
+		p.PlayerNumber = playerNumber;
+		players.Add(p);
+		p.transform.position = CircularBoard.Instance.GetSpawnPoint();
+		
+		go = (GameObject)Instantiate(fighterPrefab);
+		go.transform.parent = p.transform;
+		go.transform.localPosition = Vector3.zero;
 		
 		if(playerNumber == 0) {
-			pc.inputType = InputType.Keyboard;
+			p.inputType = InputType.Keyboard;
 		}
 		else {
-			pc.inputType = InputType.Gamepad;
+			p.inputType = InputType.Gamepad;
 		}
 		
 		Camera c;
 		if(players.Count == 1) {
 			c = GetComponentInChildren<Camera>();
+			c.name = "Camera"+playerNumber;
 		}
 		else {
 			GameObject goCam = new GameObject("Camera"+playerNumber);
 			c = goCam.AddComponent<Camera>();
 		}
-		cameras.Add(c);
+		if(!cameras.Contains(c)) {
+			cameras.Add(c);
+		}
 		c.transform.parent = transform;
 		SmoothFollow sf = c.GetComponent<SmoothFollow>();
 		if(sf == null) {
 			sf = c.gameObject.AddComponent<SmoothFollow>();
-			sf.player = pc;
+			sf.player = p;
 		}
-		sf.target = pc.transform;
+		sf.target = go.transform;
 		sf.distance = 3;
 		sf.rotationDamping = 15;
 		SmoothLookAt sla = c.GetComponent<SmoothLookAt>();
 		if(sla == null) {
 			sla = c.gameObject.AddComponent<SmoothLookAt>();
 		}
-		sla.target = pc.transform;
+		sla.target = go.transform;
+
+		UpdateCameras();
+		
+		go = (GameObject)Instantiate(turretPrefab);
+		go.transform.parent = p.transform;
+		go.transform.localPosition = Vector3.zero;
+	}
+	void UpdateCameras() {
 		if(cameras.Count == 1) {
-			c.rect = new Rect(0,0,1,1);
+			cameras[0].rect = new Rect(0,0,1,1);
 		}
 		else if(cameras.Count == 2) {
 			cameras[0].rect = new Rect(0,0,0.5f,1);
@@ -122,5 +206,18 @@ public class MultiManager : MonoBehaviour {
 			cameras[2].rect = new Rect(0,0.5f,0.5f,0.5f);
 			cameras[3].rect = new Rect(0.5f,0.5f,0.5f,0.5f);
 		}
+		if(players.Count == 0) {
+			cameras[0].transform.position = new Vector3(0,-25,0);
+			cameras[0].transform.localEulerAngles = new Vector3(270,0,0);
+		}
+	}
+	public Camera GetCameraForPlayer(int playerNumber) {
+		Camera[] cs = GetComponentsInChildren<Camera>();
+		foreach(Camera c in cs) {
+			if(c.name == "Camera"+playerNumber) {
+				return c;
+			}
+		}
+		return null;
 	}
 }

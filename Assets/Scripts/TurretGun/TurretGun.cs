@@ -21,6 +21,14 @@ public class TurretGun : MonoBehaviour {
 	public float cycle;
 	
 	void Awake () {
+		
+	}
+	// Use this for initialization
+	void Start () {
+		Setup();
+	}
+	
+	void Setup() {
 		Transform[] ts = GetComponentsInChildren<Transform>();
 		foreach(Transform t in ts) {
 			if(t.name == "Prop") {
@@ -37,46 +45,41 @@ public class TurretGun : MonoBehaviour {
 			}
 		}
 	}
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
 	// Update is called once per frame
 	void Update () {
 		Vector3 v = prop.transform.localEulerAngles;
 		v.y += Time.deltaTime*propSpeed;
 		prop.transform.localEulerAngles = v;
 		
-		transform.RotateAround(Vector3.zero,Vector3.up,rotationSpeed*Time.deltaTime);
-		v = transform.position;
-		v.y = amplitude*Mathf.Cos(cycle*Time.deltaTime);
-		transform.position = v;
+		//if not a player controlled turret
+		if(transform.parent == null) {
+			transform.RotateAround(Vector3.zero,Vector3.up,rotationSpeed*Time.deltaTime);
+			v = transform.position;
+			v.y = amplitude*Mathf.Cos(cycle*Time.deltaTime);
+			transform.position = v;
+			
+			fireDelta += Time.deltaTime;
+			if(fireDelta > fireTime) {
+				fireDelta = 0;
+				Fire();
+			}
+			bulletScale += Time.deltaTime*0.02f;//0.01f;
+			if (bulletScale > 2.5f)
+			{
+				bulletScale = 0.5f;
+			}
+		}
 		canonJoint.LookAt(new Vector3(0,canonJoint.position.y,0));
-		
-		fireDelta += Time.deltaTime;
-		if(fireDelta > fireTime) {
-			fireDelta = 0;
-			Fire();
-		}
-		if(Input.GetKeyDown(KeyCode.Alpha1)) {
-			Fire();
-		}
-		bulletScale += Time.deltaTime*0.02f;//0.01f;
-		if (bulletScale > 2.5f)
-		{
-			bulletScale = 0.5f;
-		}
 	}
 	void Fire() {
 		Vector3 f = -fire.position;
 		f.y = 0;
 		
 		GameObject player = GameObject.FindWithTag("Player");
-		if(player == null) {
-			return;
+		if(player != null) {
+			f = player.transform.position - fire.position;
 		}
-		f = player.transform.position - fire.position;
+		
 		Vector3 cross = Vector3.Cross(Vector3.up,-fire.position);
 		for(float i = -0.5f*(bulletsPerShot-1); i <= 0.5f*(bulletsPerShot-1); i++) {
 			GameObject go = GameObject.CreatePrimitive(PrimitiveType.Cube);
