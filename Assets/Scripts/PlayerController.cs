@@ -26,7 +26,7 @@ public class PlayerController : MonoBehaviour, IInputHandler {
 		}
 		SkinnedMeshRenderer[] smrs = GetComponentsInChildren<SkinnedMeshRenderer>();
 		foreach(SkinnedMeshRenderer smr in smrs) {
-			Debug.Log(smr.name);
+			//Debug.Log(smr.name);
 			if(smr.name == "Cylinder") {
 				lhTransform = smr.transform;
 				//lhTransform.gameObject.AddComponent<Fist>();
@@ -107,6 +107,9 @@ public class PlayerController : MonoBehaviour, IInputHandler {
 		transform.position = CircularBoard.Instance.GetSpawnPoint();
 	}
 	void OnControllerColliderHit(ControllerColliderHit hit) {
+		if(hit.collider.tag == "Bullet") {
+			player.SetMass(player.Mass-20);
+		}
 		if(hit.collider.name == "KillBox") {
 			Spawn();
 		}

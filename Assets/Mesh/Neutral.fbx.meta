@@ -135,6 +135,15 @@ ModelImporter:
     - 100062
     - 400062
     - 11100000
+    arm_r:
+    - 100064
+    - 400064
+    Bone_005:
+    - 100066
+    - 400066
+    Armature:
+    - 100068
+    - 400068
 AssetImporter:
   importerVersion: 1
   fileIDToRecycleName:

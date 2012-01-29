@@ -34,7 +34,7 @@ public class Bullet : MonoBehaviour {
 			
 		
 		if(_collider.tag == "Player") {
-			Player p = _collider.gameObject.GetComponent<Player>();
+			Player p = _collider.gameObject.transform.parent.GetComponent<Player>();
 			if(p != null) {
 				//if big bullet
 				if(sourceGameObject == null) {
